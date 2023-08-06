@@ -31,12 +31,12 @@ class SendEventEmailsTestCase(TestCase):
             date=timezone.now().date() + timezone.timedelta(days=30),
         )
 
-    @patch('event_email.management.commands.send_event_emails.send_mail')
+    @patch('event_mail.management.commands.send_event_emails.send_mail')
     def test_send_event_emails(self, mock_send_mail):
         call_command('send_event_emails')
         self.assertEqual(mock_send_mail.call_count, 1)
 
-    @patch('event_email.management.commands.send_event_emails.send_mail')
+    @patch('event_mail.management.commands.send_event_emails.send_mail')
     def test_no_events_scheduled(self, mock_send_mail):
         self.today_event.delete()
         self.future_event.delete()
